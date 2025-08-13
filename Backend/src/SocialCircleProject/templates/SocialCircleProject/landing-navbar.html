@@ -1,0 +1,10 @@
+{% load static %}
+
+<div id='landing-navbar'>
+    <div class='container'>
+        <a class='logo'>
+            <img class='full-image' src="{% static '/icons/SocialCircleLogo.svg' %}"  decoding="async" loading="eager"/>
+        </a>
+        <a class='login' href="{% url 'login' %}">Login</a>
+    </div>
+</div>

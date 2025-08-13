@@ -1,0 +1,16 @@
+{% extends 'SocialCircleProject/base.html'%}
+{% load static %}
+
+{% block title %}Social Circle - Login{% endblock title %}
+{% block description %}Login to your social circle account or create one to gain access to the chatting platform.{% endblock description %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user/login.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+{% endblock content %}

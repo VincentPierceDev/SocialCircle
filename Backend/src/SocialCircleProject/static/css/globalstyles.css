@@ -1,0 +1,54 @@
+@media(min-width: 0px)
+{
+    :root {
+        --primary-color-light: #5789bb;
+        --primary-color-dark: #092847;
+        --secondary-color: #F7F7F7;
+        --highlight-color: #1aa0df;
+        --accent-color: #45e984;
+
+        --text-color-light: #f4f8ff;
+        --text-color-dark: #010011;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .html,
+    body,
+    main {
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+    }
+
+    strong,
+    em {
+        font-weight: normal;
+    }
+
+    .full-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        vertical-align: bottom;
+    }
+
+    /* landing page nav bars */
+    #form-nav-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 2rem 3.75rem;
+        font-size: 3rem;
+    }
+    /* landing page nav bars */
+}

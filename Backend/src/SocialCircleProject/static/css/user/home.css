@@ -1,0 +1,7 @@
+@media(min-width: 0px)
+{
+    body {
+        background-color: var(--primary-color-dark);
+    }
+
+}

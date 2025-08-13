@@ -1,0 +1,32 @@
+{% extends "SocialCircleProject/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+
+{% block title %}Social Circle - Register{% endblock title %}
+{% block description %}Register a new social circle account to join a group or start your own.{% endblock description %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user/register.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/landing-navbar.css'%}"/>
+{% endblock styles %}
+
+
+{% block header %}
+    {% include "SocialCircleProject/landing-navbar.html" %}
+{% endblock header %}
+
+{% block content %}
+    <div class="background-gradient"></div>
+    <div id="register-container">
+        <div class="title-wrapper">
+            <span>Register to <br/> Social Circle <br/></span>
+            <small class="subheading">The easy to manage socializing app</small>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {{form | crispy}}
+            <button class="register-submit" type="submit">Start Your Account!</button>
+        </form>
+    </div>
+{% endblock content %}
