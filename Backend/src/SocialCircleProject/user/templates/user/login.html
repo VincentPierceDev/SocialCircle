@@ -5,12 +5,25 @@
 {% block description %}Login to your social circle account or create one to gain access to the chatting platform.{% endblock description %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/user/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user/user-form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/landing-navbar.css'%}"/>
 {% endblock styles %}
 
+{% block header %}
+    {% include "SocialCircleProject/landing-navbar.html" with link_text="Register" link_url="register"%}
+{% endblock header %}
+
 {% block content %}
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-    </form>
+    <div class="background-gradient"></div>
+    <div id="user-form-container">
+        <div class="title-wrapper">
+            <span>Social Circle <br/> Login<br/></span>
+            <small class="subheading">Don't have an account? <a class="suggest-link" href="{% url 'register' %}">Register</a></small>
+        </div>
+        <form id="login-form" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form }}
+            <button id="submit-button" class="user-form-submit" type="submit">Login</button>
+        </form>
+    </div>
 {% endblock content %}

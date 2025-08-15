@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User
 
 class RegisterForm(UserCreationForm):
@@ -67,11 +67,13 @@ class RegisterForm(UserCreationForm):
         fields = ['email', 'password1', 'password2', 'agree_to_terms']
 
 class AccountSetupForm(forms.ModelForm):
-    username = forms.CharField(required=True, max_length=25)
-    bio = forms.TextInput(required=False, max_length=250)
+    username = forms.CharField(required=True, max_length=25, label='')
+    bio = forms.CharField(required=False, max_length=250, widget=forms.TextInput, label='')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.setup_error_messages()
+        self.setup_attribs()
 
     def setup_error_messages(self):
         self.fields['username'].error_messages = {
@@ -90,7 +92,7 @@ class AccountSetupForm(forms.ModelForm):
             'class': 'form-field'
         });
         self.fields['bio'].widget.attrs.update({
-            'Placeholder': 'About You',
+            'Placeholder': 'Write A Bio...',
             'class': 'form-field',
             'id': 'bio-field'
         })
@@ -110,3 +112,22 @@ class AccountSetupForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'bio']
+
+class AccountLoginForm(AuthenticationForm):
+    username = forms.CharField(required=True, label='')
+    password = forms.CharField(required=True, label='', widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setup_attributes()
+
+    def setup_attributes(self):
+        self.fields["username"].widget.attrs.update({
+            'placeholder': 'Username',
+            'class': 'form-field'
+        })
+
+        self.fields["password"].widget.attrs.update({
+            'placeholder': 'Password',
+            'class': 'form-field'
+        })

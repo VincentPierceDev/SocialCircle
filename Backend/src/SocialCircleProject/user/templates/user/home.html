@@ -9,5 +9,6 @@
 {% endblock styles %}
 
 {% block content %}
-
+    <a href="{% url 'logout' %}">Logout</a>
+    <h1>{{username}}</h1>
 {% endblock content %}

@@ -22,7 +22,7 @@
         animation: 30s background-color linear forwards infinite;
     }
 
-    #register-container {
+    #user-form-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -32,12 +32,13 @@
         box-shadow: 0px 5.125rem 40px -14px rgba(64, 64, 64, .3);
     }
 
-    #register-container .title-wrapper {
+    #user-form-container .title-wrapper {
         text-align: center;
         margin-bottom: 2rem;
+        user-select: none;
     }
 
-    #register-container span {
+    #user-form-container span {
         color: var(--primary-color-dark);
         font-size: clamp(1.75rem, 4vw, 3.25rem);
         text-transform: capitalize;
@@ -46,12 +47,12 @@
         word-spacing: -0.75rem;
     }
 
-    #register-container .subheading {
+    #user-form-container .subheading {
         font-size: clamp(1.25rem, 2vw, 1.5rem);
         text-transform: capitalize;
     }
 
-    #register-container .form-field{
+    #user-form-container .form-field{
         margin: auto;
         width: 100%;
         max-width: 30rem;
@@ -63,22 +64,22 @@
         min-width: 0px;
     }
 
-    #register-container .form-field::placeholder {
+    #user-form-container .form-field::placeholder {
         color: black;
         font-size: 1.5rem;
         margin: auto 0;
     }
 
-    #register-container .form-field:focus{
+    #user-form-container .form-field:focus{
         border: 3px solid var(--highlight-color);
         box-shadow: none;
     }
 
-    #register-container .asteriskField{
+    #user-form-container .asteriskField{
         display: none;
     }
 
-    #register-container form div:has(.check-field){
+    #user-form-container form div:has(.check-field){
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -86,13 +87,13 @@
         gap: 1rem;
     }
 
-    #register-container .check-field {
+    #user-form-container .check-field {
         width: 1.25rem;
         height: 1.25rem;
         margin: 1rem 0rem;
     }
 
-    #register-container .register-submit {
+    #user-form-container .user-form-submit {
         width: 100%;
         height: fit-content;
         font-size: 1rem;
@@ -105,23 +106,30 @@
         transition: .2s ease background-color;
     }
 
+    #user-form-container #submit-button {
+        margin-top: 2rem;
+    }
+
+    #user-form-container .suggest-link {
+        color: var(--primary-color-dark);
+    }
+
     @media(pointer: fine) {
-        #register-container .register-submit:hover{
+        #user-form-container .user-form-submit:hover{
             cursor: pointer;
             background-color: var(--primary-color-dark);
             transition: .2s ease background-color;
         }
     }
-
 }
 
 @media(min-width: 768px)
 {
-    #register-container .form-field{
+    #user-form-container .form-field{
         min-width: 30rem;
     }
 
-    #register-container {
+    #user-form-container {
         padding: 2rem 9.538rem;
     }
 }

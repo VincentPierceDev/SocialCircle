@@ -4,4 +4,7 @@
         background-color: var(--primary-color-dark);
     }
 
+    h1, a {
+        color: white;
+    }
 }

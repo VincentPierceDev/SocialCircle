@@ -21,7 +21,7 @@
         height: 5rem;
     }
 
-    #landing-navbar .login {
+    #landing-navbar .nav-link {
         padding: 0.75rem 2.5rem;
         border: 2px solid black;
         text-transform: uppercase;
@@ -33,7 +33,7 @@
 
     @media(pointer: fine)
     {
-        #landing-navbar .login:hover {
+        #landing-navbar .nav-link:hover {
             background-color: #FFFFFF;
             color: var(--highlight-color);
             border-color: var(--accent-color);

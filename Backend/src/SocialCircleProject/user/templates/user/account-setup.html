@@ -5,9 +5,19 @@
 {% block description %}Register a new social circle account to join a group or start your own.{% endblock description %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/user/account-setup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user/user-form.css' %}">
 {% endblock styles %}
 
 {% block content %}
-    
+   <div class="background-gradient"></div>
+    <div id="user-form-container">
+        <div class="title-wrapper">
+            <span>Setup Your Account</span>
+        </div>
+        <form id="login-form" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form }}
+            <button id="submit-button" class="user-form-submit" type="submit">Finish</button>
+        </form>
+    </div> 
 {% endblock content %}

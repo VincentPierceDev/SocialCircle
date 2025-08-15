@@ -5,6 +5,7 @@
         <a class='logo'>
             <img class='full-image' src="{% static '/icons/SocialCircleLogo.svg' %}"  decoding="async" loading="eager"/>
         </a>
-        <a class='login' href="{% url 'login' %}">Login</a>
+        {% url link_url as resolved_url %}
+        <a class='nav-link' href="{{resolved_url}}">{{link_text}}</a>
     </div>
 </div>

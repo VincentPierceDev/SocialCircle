@@ -26,7 +26,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', default='unsafe-secret-key-for-dev-only
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.10.8']
 
 
 # Application definition
@@ -134,3 +134,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_REDIRECT_URL = "/user/dashboard"
+LOGIN_URL = "/user/login"
