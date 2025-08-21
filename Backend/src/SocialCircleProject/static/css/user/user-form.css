@@ -121,6 +121,14 @@
             transition: .2s ease background-color;
         }
     }
+
+    .errorlist {
+        list-style: none;
+    }
+    
+    .errorlist li {
+        color: red;
+    }
 }
 
 @media(min-width: 768px)

@@ -1,0 +1,36 @@
+{% extends "SocialCircleProject/base.html" %}
+{% load static %}
+
+{% block title %}The Close Nit Socializing App | Social Circle{% endblock title %}
+
+{% block description %}Social Circle is a private group chat app built for small communities. Create invite only servers, organize channels, and stay connected with your friends, family, teams, or groups in a secure and simple space.{% endblock description %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"/>
+{% endblock styles %}
+
+{% block header %}
+    <nav id="nav-bar">
+        <ul class="container nav-bar-list">
+            <li id="logo-wrapper" class="nav-item logo-wrapper">
+                <img class="full-image logo" src="{% static '/icons/SocialCircleLogo.svg' %}" alt="Social Circle logo">
+            </li>
+            <li class="nav-item">
+                <a class="text-color-light link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-color-light link" href="{% url 'register' %}">Register</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock header %}
+
+
+{% block content %}
+
+{% endblock content %}
+
+
+{% block footer %}
+
+{% endblock footer %}

@@ -16,11 +16,6 @@
         margin: 0 auto;
     }
 
-    #landing-navbar .logo {
-        width: 10rem;
-        height: 5rem;
-    }
-
     #landing-navbar .nav-link {
         padding: 0.75rem 2.5rem;
         border: 2px solid black;

@@ -2,7 +2,7 @@
 
 <div id='landing-navbar'>
     <div class='container'>
-        <a class='logo'>
+        <a class='logo-wrapper' href="{% url 'index' %}">
             <img class='full-image' src="{% static '/icons/SocialCircleLogo.svg' %}"  decoding="async" loading="eager"/>
         </a>
         {% url link_url as resolved_url %}

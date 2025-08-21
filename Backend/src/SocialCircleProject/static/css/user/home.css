@@ -4,7 +4,60 @@
         background-color: var(--primary-color-dark);
     }
 
-    h1, a {
-        color: white;
+    #nav-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        align-items: center;
+        padding: 1rem 1.5rem;
     }
+
+    #nav-bar .user-button {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: var(--accent-color);
+        transition: background-color .2s ease;
+    }
+
+    @media(pointer: fine)
+    {
+        #nav-bar .user-button:hover {
+            cursor: pointer;
+            background-color: var(--highlight-color);
+            outline: 2px solid white;
+            transition: background-color .2s ease;
+        }
+    }
+
+    #nav-bar .user-button.open {
+        background-color: var(--highlight-color);
+        outline: 2px solid white;
+    }
+
+    #nav-bar span {
+        font-weight: bold;
+        font-size: 1.5rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    #user-menu {
+        position: absolute;
+        right: 0%;
+        top: 100%;
+        list-style: none;
+        scale: 100% 0%;
+    }
+
+    #user-menu.open {
+        scale: 100%;
+    }
+
+    #account-heading {
+        text-align: center;
+        color: var(--text-color-light);
+    }
+
+   
 }

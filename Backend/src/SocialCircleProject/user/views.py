@@ -21,15 +21,16 @@ def register_view(request):
 
 @login_required
 def account_setup_view(request):
+    if request.user.username:
+        return redirect('/user/dashboard')
+    
     if request.method == 'POST':
-        form = AccountSetupForm(request.POST)
+        form = AccountSetupForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('/dashboard')
-        else:
-            form = AccountSetupForm(request.POST)
+            return redirect('/user/dashboard')
     else:
-        form = AccountSetupForm()
+        form = AccountSetupForm(instance=request.user)
     
     context = {
         "form": form
@@ -58,22 +59,27 @@ def login_view(request):
 @login_required
 def home_view(request):
     username = user_logged_in(request)
+    user_string = request.user.__str__()
+    user_initial = username[0]
 
     if username == None:
         return redirect('/login')
 
     context = {
-        "username": username
+        "username": username,
+        "user_string": user_string,
+        "user_initial": user_initial
     }
 
     return render(request, 'user/home.html', context)
 
+@login_required
 def logout_view(request):
     username = user_logged_in(request)
     if username != None:
-        return logout(request)
+        logout(request)
     
-    return redirect('/login')
+    return redirect('/')
 
 
 def user_logged_in(request):

@@ -47,20 +47,19 @@ class RegisterForm(UserCreationForm):
 
     def clean(self):
         clean_data = super().clean()
-        self.validate_password(clean_data)
-        self.validate_email(clean_data)
         return clean_data
 
-    def validate_password(self, data):
-        password = data.get('password1')
-        confirm_password = data.get('password2')
-        if password != confirm_password:
-            raise forms.ValidationError("Password Fields Did Not Match... Try Again")
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Password fields did not match")
 
-    def validate_email(self, data):
-        if User.objects.filter(email=data['email']).exists():
+    def clean_email(self):
+        data = self.cleaned_data.get('email')
+        if User.objects.filter(email=data).exists():
             raise forms.ValidationError("The provided email is already registered")
-        return data['email']
+        return data
 
     class Meta:
         model = User
@@ -100,14 +99,14 @@ class AccountSetupForm(forms.ModelForm):
 
     def clean(self):
         clean_data = super().clean()
-        self.validate_username(clean_data)
+        self.clean_username()
         return clean_data
     
-    def validate_username(self, data):
-        name = data.get('username')
+    def clean_username(self):
+        name = self.cleaned_data.get('username')
         if User.objects.filter(username=name).exclude(pk=self.instance.pk).exists():
             raise forms.ValidationError("The username is already taken")
-        return data['username'];
+        return name;
 
     class Meta:
         model = User
@@ -120,6 +119,7 @@ class AccountLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setup_attributes()
+        self.setup_error_messages()
 
     def setup_attributes(self):
         self.fields["username"].widget.attrs.update({
@@ -131,3 +131,14 @@ class AccountLoginForm(AuthenticationForm):
             'placeholder': 'Password',
             'class': 'form-field'
         })
+
+    def setup_error_messages(self):
+        self.fields['username'].error_messages = {
+            'required': 'Please provide a username.',
+            'invalid_login': 'Please enter a correct username and password.'
+        }
+
+        self.fields['password'].error_messages = {
+            'required': 'Please provide a password.',
+            'invalid_login': 'Please enter a correct username and password.'
+        }

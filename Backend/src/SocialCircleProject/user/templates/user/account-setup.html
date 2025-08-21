@@ -14,7 +14,7 @@
         <div class="title-wrapper">
             <span>Setup Your Account</span>
         </div>
-        <form id="login-form" method="POST" action="{% url 'login' %}">
+        <form id="login-form" method="POST" action="{% url 'account_setup' %}">
             {% csrf_token %}
             {{ form }}
             <button id="submit-button" class="user-form-submit" type="submit">Finish</button>

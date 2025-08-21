@@ -37,6 +37,25 @@
         vertical-align: bottom;
     }
 
+    .container {
+        max-width: 125rem;
+        padding: 0rem 1rem;
+        margin: auto;
+    }
+
+    .text-color-light {
+        color: var(--text-color-light);
+    }
+
+    .logo-wrapper {
+        width: 10rem;
+        height: 5rem;
+    }
+
+    .primary-font {
+        font-family: 'Courier New', Courier, monospace;
+    }
+
     /* landing page nav bars */
     #form-nav-bar {
         display: flex;

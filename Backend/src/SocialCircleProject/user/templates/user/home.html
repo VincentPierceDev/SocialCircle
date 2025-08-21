@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="{% static 'css/user/home.css' %}"/>
 {% endblock styles %}
 
+{% block scripts %}
+    <script type="module" src="{% static 'scripts/user/dashboard.js' %}"></script>
+{% endblock scripts %}
+
 {% block content %}
-    <a href="{% url 'logout' %}">Logout</a>
-    <h1>{{username}}</h1>
+    <div id="nav-bar" class="container">
+        <div class="logo-wrapper">
+            <img class="full-image" src="{% static '/icons/SocialCircleLogo.svg' %}" alt="social circle logo">
+        </div>
+        <button id="nav-user-button" class="user-button" aria-expanded="false" aria-controls="user-menu" aria-label="profile button">
+            <span aria-hidden="true">{{user_initial}}</span>
+        </button>
+        <ul id="user-menu">
+            <li>
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+    <h1 id="account-heading" class="primary-font">{{user_string}}</h1>
 {% endblock content %}
