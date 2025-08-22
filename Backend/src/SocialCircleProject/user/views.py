@@ -71,7 +71,7 @@ def home_view(request):
         "user_initial": user_initial
     }
 
-    return render(request, 'user/home.html', context)
+    return render(request, 'user/dashboard.html', context)
 
 @login_required
 def logout_view(request):
