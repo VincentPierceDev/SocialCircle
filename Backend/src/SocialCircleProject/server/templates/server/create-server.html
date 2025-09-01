@@ -1,0 +1,25 @@
+{% extends "SocialCircleProject/base.html" %}
+{% load static %}
+
+{% block title %}Create Server{% endblock title %}
+{% block description %}Create a new Social Circle Server for your group to join!{% endblock description %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/dashboard-navbar.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/server/create-server.css'%}"/>
+{% endblock styles %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'scripts/dashboard-navbar.js' %}"></script>
+{% endblock scripts %}
+
+{% block header %}
+    {% include "SocialCircleProject/dashboard-navbar.html" %}
+{% endblock header %}
+
+
+{% block content %}
+    <h1>Create Server</h1>
+{% endblock content %}
+
+

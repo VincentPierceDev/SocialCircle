@@ -6,33 +6,19 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/user/dashboard.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/dashboard-navbar.css' %}"/>
 {% endblock styles %}
 
 {% block scripts %}
-    <script type="module" src="{% static 'scripts/user/dashboard.js' %}"></script>
+    <script type="module" src="{% static 'scripts/dashboard-navbar.js' %}"></script>
 {% endblock scripts %}
 
 {% block header %}
-    <div id="nav-bar" class="container">
-        <div class="logo-wrapper">
-            <img class="full-image" src="{% static '/icons/SocialCircleLogo.svg' %}" alt="social circle logo" draggable="false">
-        </div>
-        <button id="nav-user-button" class="user-button" aria-expanded="false" aria-controls="user-menu" aria-label="profile button">
-            <span aria-hidden="true">{{user_initial}}</span>
-        </button>
-        <ul id="user-menu">
-            <li>
-                <span>{{user_string}}</span>
-            </li>
-            <li>
-                <a href="{% url 'logout' %}">Logout</a>
-            </li>
-        </ul>
-    </div>
+    {% include "SocialCircleProject/dashboard-navbar.html" %}
 {% endblock header %}
 
 {% block content %}
-    <h1 id="account-heading" class="primary-font">{{user_string}}'s Profile</h1>
+    <h1 id="account-heading" class="primary-font">{{username}}'s Profile</h1>
     <div id="system-grid" class="container">
         <div id="control-panel" class="panel">
             <span class="panel-title">Settings</span>
@@ -42,6 +28,7 @@
         </div>
         <div id="server-panel" class="panel">
             <span class="panel-title">Server List</span>
+            <span>{{server_count}}</span>
         </div>
         <div id="info-panel" class="panel">
             <span class="panel-title">Server Info</span>

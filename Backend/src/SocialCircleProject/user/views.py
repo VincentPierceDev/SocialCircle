@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from .forms import RegisterForm, AccountSetupForm, AccountLoginForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -58,33 +58,33 @@ def login_view(request):
 
 @login_required
 def home_view(request):
-    username = user_logged_in(request)
-    user_string = request.user.__str__()
+    username = request.user.__str__()
     user_initial = username[0]
 
     if username == None:
         return redirect('/login')
 
+    if request.method == "GET":
+        servers = request.user.servers.all()
+        if servers:
+            server_count = servers.count
+        else:
+            server_count = 0
+
     context = {
         "username": username,
-        "user_string": user_string,
-        "user_initial": user_initial
+        "user_initial": user_initial,
+        "servers": servers,
+        "server_count": server_count
     }
 
     return render(request, 'user/dashboard.html', context)
 
 @login_required
 def logout_view(request):
-    username = user_logged_in(request)
+    username = request.user.username
+
     if username != None:
         logout(request)
     
     return redirect('/')
-
-
-def user_logged_in(request):
-    if request.user.is_authenticated:
-        username = request.user.username
-    else:
-        username = None
-    return username
