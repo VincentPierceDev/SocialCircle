@@ -22,13 +22,21 @@
     <div id="system-grid" class="container">
         <div id="control-panel" class="panel">
             <span class="panel-title">Settings</span>
+            <a href={% url 'create_server'%} class="secondary-font settings-button">Create Server</a>
         </div>
         <div id="quick-access-panel" class="panel">
             <span class="panel-title">Quick Access</span>
         </div>
         <div id="server-panel" class="panel">
             <span class="panel-title">Server List</span>
-            <span>{{server_count}}</span>
+            <ul id="full-server-list">
+                {% for server in servers %}
+                    <li class="server-card">
+                        {{server.name}}
+                        {{server.description}}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
         <div id="info-panel" class="panel">
             <span class="panel-title">Server Info</span>

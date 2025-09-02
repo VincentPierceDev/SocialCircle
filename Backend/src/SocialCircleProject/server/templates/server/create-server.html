@@ -20,6 +20,11 @@
 
 {% block content %}
     <h1>Create Server</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Submit</button>
+    </form>
 {% endblock content %}
 
 

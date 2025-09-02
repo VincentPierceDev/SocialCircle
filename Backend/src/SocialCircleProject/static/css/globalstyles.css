@@ -58,6 +58,10 @@
         font-family: 'Courier New', Courier, monospace;
     }
 
+    .secondary-font {
+        font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    }
+
     /* landing page nav bars */
     #form-nav-bar {
         display: flex;

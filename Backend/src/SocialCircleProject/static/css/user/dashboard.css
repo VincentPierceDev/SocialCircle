@@ -65,4 +65,28 @@
         margin: .5rem 0 auto auto;
         text-decoration: underline;
     }
+
+    .settings-button {
+        display: block;
+        background-color: var(--accent-color);
+        margin: auto;
+        margin-top: 0;
+        text-decoration: none;
+        width: fit-content;
+        height: fit-content;
+        padding: 1rem;
+        border: 2px solid var(--highlight-color);
+        border-radius: 0.625rem;
+        color: var(--text-color-dark);
+        transition: all .2s ease;
+    }
+
+    @media(pointer: fine) {
+        .settings-button:hover {
+            background-color: var(--primary-color-dark);
+            color: var(--text-color-light);
+            border-color: rgba(0, 0, 0, 0);
+            transition: all .2s ease;
+        }
+    }
 }

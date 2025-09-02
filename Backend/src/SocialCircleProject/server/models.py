@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 
 class Server(models.Model):
     name = models.CharField(max_length=25, default="")
+    description = models.CharField(max_length=200, default="")
     members = models.ManyToManyField(User, through="Membership", related_name="servers")
 
     class Meta:
@@ -11,6 +12,16 @@ class Server(models.Model):
     
     def __str__(self):
         return self.name
+    
+    #if the setting owner is not created, then it is a server ownership transfer
+    def set_owner(self, user):
+        membership, created = Membership.objects.get_or_create(
+            server=self, user=user, defaults={'status': Membership.ROLE_MAP["Owner"]}
+        )
+        if not created:
+            membership.status = Membership.ROLE_MAP['Owner']
+            membership.save()
+        return membership
         
 
 
@@ -24,15 +35,16 @@ class Membership(models.Model):
         (3, 'Member')
     )
 
+    ROLE_MAP = {v: k for k, v in ROLE_CHOICES}
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
     status = models.IntegerField(choices=ROLE_CHOICES, default=3)
 
-    def assign_group(self):
+    def assign_admin_group(self):
         group_name = dict(self.ROLE_CHOICES)[self.status]
         group, _ = Group.objects.get_or_create(name=group_name)
         self.user.groups.add(group)
-
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=["user", "server"], name="server_user_constraint")] # user can only be in server once
