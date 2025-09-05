@@ -1,0 +1,66 @@
+{% extends "SocialCircleProject/base.html" %}
+{% load static %}
+
+{% block title %}Join Server{% endblock title %}
+{% block description %}Browse the server list and request to join your desired server{% endblock description %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/dashboard-navbar.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/server/setup-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/server/join-server.css'%}">
+{% endblock styles %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'scripts/dashboard-navbar.js' %}"></script>
+{% endblock scripts %}
+
+{% block header %}
+    {% include "SocialCircleProject/dashboard-navbar.html" %}
+{% endblock header %}
+
+{% block content %}
+<h1>Search For Server To Join</h1>
+<div id="join-server-wrapper" class="container display-wrapper">
+    <form method="GET">
+        {{form}}
+        <button type="submit">Search</button>
+        <a id="back-button" href="{% url 'dashboard' %}">Back</a>
+    </form>
+    {% if results %}
+    <ul id="server-results">
+        {% for result in results %}
+            <li class="server-item">
+                <form method="POST" class="server-card">
+                    {% csrf_token %}
+                    <div class="meta-divider">
+                        <span>{{result.name}}</span>
+                        <p>{{result.description}}</p>
+                        <span>Owner: {{result.get_owner}}</span>
+                    </div>
+                    <div class="status-divider">
+                        <div class="activity-wrapper">
+                            <div class="online-dot"></div>
+                            <span>{{result.member_count}}</span>
+                        </div>
+                        <div class="activity-wrapper">
+                            <div class="offline-dot"></div>
+                            <span>0</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="server_id" value="{{result.id}}"/>
+                    <button type="Submit" class="server-button" aria-label="select server"></button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    {% elif no_search %}
+    <ul id="server-results">
+        <li>Please Search A Name</li>
+    </ul>
+    {% else %}
+    <ul id="server-results">
+        <li>No Results Found</li>
+    </ul>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -9,7 +9,7 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             login(request, form.save())
-            return redirect('/user/account-setup')
+            return redirect('account_setup')
     else:
         form = RegisterForm()
         
@@ -22,13 +22,13 @@ def register_view(request):
 @login_required
 def account_setup_view(request):
     if request.user.username:
-        return redirect('/user/dashboard')
+        return redirect('dashboard')
     
     if request.method == 'POST':
         form = AccountSetupForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('/user/dashboard')
+            return redirect('dashboard')
     else:
         form = AccountSetupForm(instance=request.user)
     
@@ -46,7 +46,7 @@ def login_view(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
-                return redirect('/dashboard')
+                return redirect('dashboard')
     else:
         form = AccountLoginForm()
             
@@ -62,7 +62,7 @@ def home_view(request):
     user_initial = username[0]
 
     if username == None:
-        return redirect('/login')
+        return redirect('login')
 
     if request.method == "GET":
         servers = request.user.servers.all()
@@ -75,7 +75,7 @@ def home_view(request):
         "username": username,
         "user_initial": user_initial,
         "servers": servers,
-        "server_count": server_count
+        "server_count": server_count,
     }
 
     return render(request, 'user/dashboard.html', context)
@@ -87,4 +87,4 @@ def logout_view(request):
     if username != None:
         logout(request)
     
-    return redirect('/')
+    return redirect('index')

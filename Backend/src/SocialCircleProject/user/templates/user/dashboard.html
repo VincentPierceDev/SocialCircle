@@ -11,6 +11,7 @@
 
 {% block scripts %}
     <script type="module" src="{% static 'scripts/dashboard-navbar.js' %}"></script>
+    <script type="module" src="{% static 'scripts/user/dashboard.js'%}"></script>
 {% endblock scripts %}
 
 {% block header %}
@@ -19,10 +20,21 @@
 
 {% block content %}
     <h1 id="account-heading" class="primary-font">{{username}}'s Profile</h1>
+    <div id="mobile-controls-wrapper" class="container">
+        <button id="left-control" class="control-button">
+            <img class="full-image" src="{% static 'icons/arrow.svg'%}" alt="left arrow"/>
+            <span>Settings</span>
+        </button>
+        <button id="right-control" class="control-button">
+            <img class="full-image" src="{% static 'icons/arrow.svg'%}" alt="right arrow"/>
+            <span>Server Info</span>
+        </button>
+    </div>
     <div id="system-grid" class="container">
         <div id="control-panel" class="panel">
             <span class="panel-title">Settings</span>
             <a href={% url 'create_server'%} class="secondary-font settings-button">Create Server</a>
+            <a href={% url 'join_server'%} class="secondary-font settings-button">Join Server</a>
         </div>
         <div id="quick-access-panel" class="panel">
             <span class="panel-title">Quick Access</span>
@@ -30,12 +42,31 @@
         <div id="server-panel" class="panel">
             <span class="panel-title">Server List</span>
             <ul id="full-server-list">
-                {% for server in servers %}
-                    <li class="server-card">
-                        {{server.name}}
-                        {{server.description}}
+                {% if servers|length == 0 %}
+                    <li id="no-server-card" class="server-card">
+                        <span class="primary-font">No Servers, Please Join or Create One!</span>
                     </li>
-                {% endfor %}
+                {% else %}
+                    {% for server in servers %}
+                        <li id="server-{{ forloop.counter }}" class="server-card">
+                            <div class="meta-divider">
+                                <span>{{server.name}}</span>
+                                <p>{{server.description}}</p>
+                            </div>
+                            <div class="status-divider">
+                                <div class="activity-wrapper">
+                                    <div class="online-dot"></div>
+                                    <span>{{server.member_count}}</span>
+                                </div>
+                                <div class="activity-wrapper">
+                                    <div class="offline-dot"></div>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                            <button class="server-button" aria-label="select server"></button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </div>
         <div id="info-panel" class="panel">

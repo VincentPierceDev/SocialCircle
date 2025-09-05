@@ -4,8 +4,8 @@ from user.models import User
 
 
 class CreateServerForm(forms.ModelForm):
-    name = forms.CharField(max_length=25, required=True, label='Enter Name')
-    description = forms.CharField(max_length=200, widget=forms.TextInput, label='Enter Description')
+    name = forms.CharField(max_length=25, required=True, label='Server Name')
+    description = forms.CharField(max_length=200, widget=forms.TextInput, label='Server Description')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,3 +29,14 @@ class CreateServerForm(forms.ModelForm):
     class Meta:
         model = Server
         fields = ["name", "description"]
+
+class SearchServerForm(forms.Form):
+    name = forms.CharField(max_length=25, required=True, label="Search Name")
+    owner = forms.CharField(max_length=25, required=False, label="Owner Filter")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['owner'].widget.attrs.update({
+            'Placeholder': 'Optional'
+        })
+    

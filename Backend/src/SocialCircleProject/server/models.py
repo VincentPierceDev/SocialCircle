@@ -22,6 +22,18 @@ class Server(models.Model):
             membership.status = Membership.ROLE_MAP['Owner']
             membership.save()
         return membership
+    
+    def get_owner(self):
+        owner = Membership.objects.filter(server=self, status=Membership.ROLE_MAP["Owner"]).get()
+        return owner
+    
+    def add_member(self, user):
+        membership = Membership.objects.create(server=self, user=user, status=Membership.ROLE_MAP['Member'])
+        return membership
+
+    def member_count(self):
+        return Membership.objects.filter(server=self).count()
+        
         
 
 
@@ -40,6 +52,9 @@ class Membership(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
     status = models.IntegerField(choices=ROLE_CHOICES, default=3)
+
+    def __str__(self):
+        return self.user.username
 
     def assign_admin_group(self):
         group_name = dict(self.ROLE_CHOICES)[self.status]

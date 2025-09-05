@@ -3,6 +3,7 @@
     /* all dashboards should have this style, so leaving it here */
     body {
         background: linear-gradient(to bottom, var(--primary-color-dark) 50%, var(--primary-color-light) 50%);
+        background-repeat: no-repeat;
     }
 
     #nav-bar {

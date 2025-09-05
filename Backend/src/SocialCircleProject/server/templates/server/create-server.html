@@ -6,7 +6,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/dashboard-navbar.css'%}"/>
-    <link rel="stylesheet" href="{% static 'css/server/create-server.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/server/setup-page.css'%}"/>
 {% endblock styles %}
 
 {% block scripts %}
@@ -20,11 +20,14 @@
 
 {% block content %}
     <h1>Create Server</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container display-wrapper">
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit">Submit</button>
+            <a id="back-button" href="{% url 'dashboard' %}">Back</a>
+        </form>
+    </div>
 {% endblock content %}
 
 
