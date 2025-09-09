@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from .forms import RegisterForm, AccountSetupForm, AccountLoginForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from server.models import Server
 
 def register_view(request):
     if request.method == 'POST':
@@ -64,18 +65,25 @@ def home_view(request):
     if username == None:
         return redirect('login')
 
-    if request.method == "GET":
-        servers = request.user.servers.all()
-        if servers:
-            server_count = servers.count
-        else:
-            server_count = 0
+    servers = request.user.servers.all()
+    if servers:
+        server_count = servers.count
+    else:
+        server_count = 0
+
+    if request.method == "POST":
+        server_public_id = request.POST.get("server")
+        selected_server = Server.objects.get(u_uniqueid=server_public_id)
+        server_url = selected_server.get_absolute_url()
+    else:
+        server_url = False
 
     context = {
         "username": username,
         "user_initial": user_initial,
         "servers": servers,
         "server_count": server_count,
+        "selected_server_url": server_url
     }
 
     return render(request, 'user/dashboard.html', context)

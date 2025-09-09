@@ -47,7 +47,7 @@
                         <span class="primary-font">No Servers, Please Join or Create One!</span>
                     </li>
                 {% else %}
-                    {% for server in servers %}
+                    {% for server in servers %}  
                         <li id="server-{{ forloop.counter }}" class="server-card">
                             <div class="meta-divider">
                                 <span>{{server.name}}</span>
@@ -63,7 +63,11 @@
                                     <span>0</span>
                                 </div>
                             </div>
-                            <button class="server-button" aria-label="select server"></button>
+                            <button type="submit" form="server-form-{{forloop.counter}}" class="server-button" aria-label="select server"></button>
+                            <form method="POST" action="" id="server-form-{{forloop.counter}}">
+                                {% csrf_token %}
+                                <input type="hidden" name="server" value="{{ server.get_public_id }}"/>
+                            </form>
                         </li>
                     {% endfor %}
                 {% endif %}
@@ -71,6 +75,9 @@
         </div>
         <div id="info-panel" class="panel">
             <span class="panel-title">Server Info</span>
+            {% if selected_server_url %}
+                <a class="secondary-font settings-button" href="{{selected_server_url}}">Connect</a>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}

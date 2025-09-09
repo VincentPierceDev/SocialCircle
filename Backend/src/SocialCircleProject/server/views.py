@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import CreateServerForm, SearchServerForm
 from .models import Server, Membership
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from .decorators import server_member_required
+from django.http import HttpResponse
+import uuid
 
 
 @login_required
@@ -30,7 +33,6 @@ def create_server_view(request):
 
 @login_required
 def join_server_view(request):
-
     username, user_initial, temp_username = collect_user_info(request)
     search_results = []
     search_form = SearchServerForm(request.GET or None)
@@ -65,6 +67,20 @@ def join_server_view(request):
     }
 
     return render(request, 'server/join-server.html', context)
+
+@server_member_required
+@login_required
+def server_home_view(request, public_id):
+    print(public_id)
+    try:
+        uid = uuid.UUID(hex=public_id)
+    except ValueError:
+        print("Invalid ID")
+    server_info = get_object_or_404(Server, u_uniqueid=uid)
+    context = {
+        'title': server_info.name
+    }
+    return render(request, 'server/server-home.html', context)
 
 
 def collect_user_info(request):

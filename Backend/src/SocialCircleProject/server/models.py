@@ -1,11 +1,14 @@
 from django.db import models
 from user.models import User
 from django.contrib.auth.models import Group
+import uuid
+from django.urls import reverse
 
 class Server(models.Model):
     name = models.CharField(max_length=25, default="")
     description = models.CharField(max_length=200, default="")
     members = models.ManyToManyField(User, through="Membership", related_name="servers")
+    u_uniqueid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     class Meta:
         ordering = ["name"]
@@ -33,6 +36,13 @@ class Server(models.Model):
 
     def member_count(self):
         return Membership.objects.filter(server=self).count()
+    
+    def get_public_id(self):
+        return self.u_uniqueid.hex;
+
+    def get_absolute_url(self):
+        return reverse("server_home", kwargs={"public_id": self.get_public_id()})
+    
         
         
 

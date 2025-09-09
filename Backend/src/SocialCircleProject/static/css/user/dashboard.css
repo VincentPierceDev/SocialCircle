@@ -275,6 +275,10 @@
         }
     }
 
+    #full-server-list form {
+        position: absolute;
+    }
+
     #mobile-controls-wrapper {
         width: 100%;
         display: flex;

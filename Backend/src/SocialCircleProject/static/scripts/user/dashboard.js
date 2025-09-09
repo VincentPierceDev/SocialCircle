@@ -9,6 +9,10 @@ function Start() {
         mobileControls.SideMenuControl();
         ServerListMobileClicks(mobileControls);
     }
+
+    //prevent form resubmit alert
+    if(window.history.replaceState)
+        window.history.replaceState(null, null, window.location.href);
         
 }
 
